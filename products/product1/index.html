@@ -20,8 +20,8 @@
     .button, button { background:#1976d2; color:#fff; border:none; padding:10px 12px; border-radius:8px; text-decoration:none; cursor:pointer; }
     button { font-size:14px; }
     .site-footer { text-align:center; padding:16px; color:#666; font-size:14px; }
-    
-    /* طراحی Thumbnail */
+
+    /* Thumbnail دایره‌ای */
     .design-thumbnails { display:flex; gap:12px; margin-top:16px; }
     .thumb { width:60px; height:60px; border-radius:50%; overflow:hidden; cursor:pointer; border:2px solid #ddd; transition:border-color 0.2s; }
     .thumb:hover, .thumb.active { border-color:#1976d2; }
@@ -55,7 +55,7 @@
         style="width:100%; height:640px;">
       </model-viewer>
 
-      <!-- بخش Thumbnail -->
+      <!-- Thumbnail ها -->
       <div class="design-thumbnails">
         <div class="thumb active" data-model="../../models/product1_design1.glb">
           <img src="../../images/design1.jpg" alt="طرح 1">
@@ -74,7 +74,7 @@
 
     <div class="product-info">
       <h2>توضیحات محصول</h2>
-      <p>اینجا می‌توانید توضیحات مفصل محصول، قیمت، مواد و نکات ویژه را بنویسید.</p>
+      <p>....</p>
 
       <div class="actions">
         <button id="copyLink">کپی لینک نمایش برای مشتری</button>
@@ -84,7 +84,7 @@
   </main>
 
   <script>
-    // تغییر مدل با کلیک روی Thumbnail
+    // تغییر مدل و لینک دانلود با کلیک روی Thumbnail
     const thumbnails = document.querySelectorAll('.thumb');
     const modelViewer = document.querySelector('model-viewer');
     const downloadLink = document.getElementById('downloadModel');
@@ -95,7 +95,6 @@
         modelViewer.setAttribute('src', newModel);
         downloadLink.setAttribute('href', newModel);
 
-        // فعال کردن استایل active روی Thumbnail انتخاب شده
         thumbnails.forEach(t => t.classList.remove('active'));
         thumb.classList.add('active');
       });
