@@ -48,7 +48,7 @@
     <div class="viewer-wrapper">
       <model-viewer 
         id="mv" 
-        src="models/product1.glb" 
+        src="/models/product1.glb" 
         alt="محصول سه‌بعدی" 
         camera-controls 
         auto-rotate 
@@ -66,7 +66,7 @@
 
       <div class="actions">
         <button id="copyLink">کپی لینک نمایش برای مشتری</button>
-        <a id="downloadModel" class="button" href="models/product1.glb" download>دانلود مدل (.glb)</a>
+        <a id="downloadModel" class="button" href="/models/product1.glb" download>دانلود مدل (.glb)</a>
       </div>
     </div>
   </main>
@@ -77,7 +77,7 @@
         await navigator.clipboard.writeText(window.location.href);
         alert('لینک صفحه کپی شد: ' + window.location.href);
       } catch (e) {
-        prompt('کپی خودکار پشتیبانی نمی‌شود؛ لطفاً این آدرس را کپی کنید:', window.location.href);
+        prompt('کپی خود پشتیبانی نمی‌شود؛ لطفاً این آدرس را کپی کنید:', window.location.href);
       }
     });
   </script>
