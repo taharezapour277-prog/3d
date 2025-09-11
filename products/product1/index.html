@@ -6,37 +6,199 @@
   <title>کیف نمونه — نمایش سه‌بعدی</title>
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.0.1/model-viewer.min.js"></script>
 
-  <!-- CSS داخلی -->
+  <!-- فونت مدرن -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
   <style>
+    :root {
+      --font-sans: "Inter", Tahoma, Arial, "Noto Sans", sans-serif;
+      --bg: #0b0b0c;
+      --text: rgba(255,255,255,0.8);
+      --heading: #fff;
+      --accent: #8a3ffc;
+      --accent-2: #5b2ce6;
+      --glass-border: linear-gradient(135deg, rgba(138,63,252,0.18), rgba(91,44,230,0.12));
+      --shadow-soft: 0 8px 30px rgba(2,6,23,0.6);
+      --shadow-elev: 0 18px 50px rgba(2,6,23,0.7);
+      --radius: 18px;
+    }
+
     * { box-sizing: border-box; }
-    body { font-family: Tahoma, Arial, "Noto Sans", sans-serif; margin:0; background:#fafafa; color:#222; }
-    .product-header { padding:16px; display:flex; gap:12px; align-items:center; }
-    .product-header .back { text-decoration:none; color:#333; padding:6px 10px; border-radius:6px; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
-    .container { max-width:1100px; margin:28px auto; padding:0 16px; }
-    .product-page { display:grid; grid-template-columns: 1fr 360px; gap:20px; align-items:start; }
-    .viewer-wrapper { background:#fff; padding:8px; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,0.06); }
-    .product-info { background:#fff; padding:16px; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,0.06); }
-    .actions { margin-top:12px; display:flex; gap:8px; }
-    .button, button { background:#1976d2; color:#fff; border:none; padding:10px 12px; border-radius:8px; text-decoration:none; cursor:pointer; }
-    button { font-size:14px; }
-    .site-footer { text-align:center; padding:16px; color:#666; font-size:14px; }
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background:
+        radial-gradient(1200px 600px at 10% 10%, rgba(138,63,252,0.06), transparent 8%),
+        radial-gradient(1000px 480px at 90% 90%, rgba(138,63,252,0.03), transparent 6%),
+        var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-    /* Thumbnail دایره‌ای */
-    .design-thumbnails { display:flex; gap:12px; margin-top:16px; }
-    .thumb { width:60px; height:60px; border-radius:50%; overflow:hidden; cursor:pointer; border:2px solid #ddd; transition:border-color 0.2s; }
-    .thumb:hover, .thumb.active { border-color:#1976d2; }
-    .thumb img { width:100%; height:100%; object-fit:cover; }
+    /* هدر */
+    .product-header {
+      padding: 16px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      background: transparent;
+    }
+    .product-header h1 {
+      font-size: 22px;
+      margin: 0;
+      color: var(--heading);
+      font-weight: 600;
+    }
+    .back {
+      text-decoration: none;
+      color: var(--accent);
+      padding: 6px 14px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: background .2s ease, transform .2s ease;
+    }
+    .back:hover {
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-2px);
+    }
 
-    @media (max-width:900px) {
+    /* کانتینر */
+    .container {
+      max-width: 1200px;
+      margin: 24px auto;
+      padding: 0 16px;
+      flex: 1;
+    }
+    .product-page {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* کارت شیشه‌ای */
+    .viewer-wrapper,
+    .product-info {
+      position: relative;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(8px) saturate(120%);
+      -webkit-backdrop-filter: blur(8px) saturate(120%);
+      padding: 16px;
+      transition: transform .28s ease, box-shadow .28s ease;
+    }
+    .viewer-wrapper:hover,
+    .product-info:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-elev);
+    }
+
+    model-viewer {
+      width: 100%;
+      height: 640px;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    /* توضیحات محصول */
+    .product-info h2 {
+      margin-top: 0;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--heading);
+    }
+    .product-info p {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* دکمه‌ها */
+    .actions {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .button, button {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .button:hover, button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(138,63,252,0.4);
+    }
+
+    /* Thumbnails */
+    .design-thumbnails {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .thumb {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid rgba(255,255,255,0.15);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .thumb:hover {
+      transform: scale(1.05);
+    }
+    .thumb.active {
+      border-color: var(--accent);
+    }
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* فوتر */
+    .site-footer {
+      text-align: center;
+      padding: 16px;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    /* ریسپانسیو */
+    @media (max-width: 900px) {
       .product-page { grid-template-columns: 1fr; }
-      model-viewer { height:480px !important; }
+      model-viewer { height: 480px !important; }
+    }
+    @media (max-width: 500px) {
+      .product-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .back { font-size: 14px; padding: 6px 10px; }
     }
   </style>
 </head>
 
 <body>
   <header class="product-header">
-    <a class="back" href="/3d/index.html">&larr; بازگشت به گالری</a>
+    <a class="back" href="/3d/index.html">&larr; بازگشت</a>
     <h1>کیف نمونه</h1>
   </header>
 
@@ -51,11 +213,10 @@
         ar 
         ar-modes="webxr scene-viewer quick-look" 
         exposure="1" 
-        shadow-intensity="1" 
-        style="width:100%; height:640px;">
+        shadow-intensity="1">
       </model-viewer>
 
-      <!-- Thumbnail ها -->
+      <!-- Thumbnails -->
       <div class="design-thumbnails">
         <div class="thumb active" data-model="/3d/models/product1_design1.glb">
           <img src="/3d/images/design1.jpg" alt="طرح 1">
@@ -74,10 +235,10 @@
 
     <div class="product-info">
       <h2>توضیحات محصول</h2>
-      <p>....</p>
+      <p>طراحی مدرن و کیفیت بالا. قابلیت شخصی‌سازی طرح‌ها و انتخاب متریال متنوع.</p>
 
       <div class="actions">
-        <button id="copyLink">کپی لینک نمایش برای مشتری</button>
+        <button id="copyLink">کپی لینک</button>
         <a id="downloadModel" class="button" href="/3d/models/product1_design1.glb" download>دانلود مدل (.glb)</a>
       </div>
     </div>
@@ -104,15 +265,15 @@
     document.getElementById('copyLink').addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(window.location.href);
-        alert('لینک صفحه کپی شد: ' + window.location.href);
+        alert('لینک کپی شد ✅');
       } catch (e) {
-        prompt('کپی خودکار پشتیبانی نمی‌شود؛ لطفاً این آدرس را کپی کنید:', window.location.href);
+        prompt('کپی خودکار پشتیبانی نمی‌شود؛ این آدرس را کپی کنید:', window.location.href);
       }
     });
   </script>
 
   <footer class="site-footer">
-    <p>برای مشاهده در AR، از موبایل و مرورگرهای پشتیبان استفاده کنید.</p>
+    <p>Taha Rezapour</p>
   </footer>
 </body>
 </html>
