@@ -6,29 +6,144 @@
   <title>گالری محصولات سه‌بعدی</title>
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.0.1/model-viewer.min.js"></script>
 
-  <!-- CSS داخلی -->
+  <!-- فونت مدرن -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
   <style>
+    :root {
+      --font-sans: "Inter", Tahoma, Arial, "Noto Sans", sans-serif;
+      --bg: #0b0b0c;
+      --text: rgba(255,255,255,0.8);
+      --heading: #fff;
+      --accent: #8a3ffc;   /* بنفش */
+      --accent-2: #5b2ce6; /* بنفش تیره‌تر */
+      --glass-border: linear-gradient(135deg, rgba(138,63,252,0.18), rgba(91,44,230,0.12));
+      --shadow-soft: 0 8px 30px rgba(2,6,23,0.6);
+      --shadow-elev: 0 18px 50px rgba(2,6,23,0.7);
+      --radius: 18px;
+    }
+
     * { box-sizing: border-box; }
-    body { font-family: Tahoma, Arial, "Noto Sans", sans-serif; margin:0; background:#fafafa; color:#222; }
-    .site-header { padding:24px; text-align:center; background:linear-gradient(90deg,#fff,#f6f6f6); box-shadow:0 1px 0 rgba(0,0,0,0.05); }
-    .site-header h1 { margin:6px 0; font-size:26px; }
-    .lead { margin:0; color:#666; }
-    .container { max-width:1100px; margin:28px auto; padding:0 16px; }
-    .grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap:18px; }
-    .card { background:#fff; border-radius:10px; overflow:hidden; box-shadow:0 6px 18px rgba(0,0,0,0.06); transition:transform .18s ease; }
-    .card:hover { transform: translateY(-6px); }
-    .card-link { color:inherit; text-decoration:none; display:block; }
-    .preview { background:#eee; display:flex; align-items:center; justify-content:center; height:220px; }
-    .card-body { padding:12px 16px; }
-    .card-body h3 { margin:4px 0 6px; }
-    .card-body p { margin:0; color:#666; font-size:14px; }
-    .site-footer { text-align:center; padding:16px; color:#666; font-size:14px; }
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background:
+        radial-gradient(1200px 600px at 10% 10%, rgba(138,63,252,0.06), transparent 8%),
+        radial-gradient(1000px 480px at 90% 90%, rgba(138,63,252,0.03), transparent 6%),
+        var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* هدر */
+    .site-header {
+      padding: 24px;
+      text-align: center;
+      background: transparent;
+    }
+    .site-header h1 {
+      margin: 6px 0;
+      font-size: 28px;
+      color: var(--heading);
+      font-weight: 600;
+    }
+    .lead { margin:0; color: var(--text); }
+
+    /* کانتینر */
+    .container { max-width: 1200px; margin: 28px auto; padding: 0 16px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+      gap: 24px;
+    }
+
+    /* کارت شیشه‌ای */
+    .card {
+      position: relative;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(8px) saturate(120%);
+      -webkit-backdrop-filter: blur(8px) saturate(120%);
+      transition: transform .28s ease, box-shadow .28s ease;
+      overflow: hidden;
+    }
+    .card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--glass-border);
+
+  -webkit-mask: 
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+
+  mask: 
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+
+  pointer-events: none;
+  z-index: 0;
+}
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.01);
+      box-shadow: var(--shadow-elev);
+    }
+
+    /* بخش پیش‌نمایش */
+    .preview {
+      position: relative;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-top-left-radius: var(--radius);
+      border-top-right-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    /* بدنه کارت */
+    .card-body {
+      padding: 16px 20px;
+      position: relative;
+      z-index: 2;
+    }
+    .card-body h3 {
+      margin: 0 0 6px;
+      color: var(--heading);
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .card-body p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    /* لینک کارت */
+    .card-link { display: block; color: inherit; text-decoration: none; }
+
+    /* فوتر */
+    .site-footer {
+      text-align: center;
+      padding: 16px;
+      color: var(--text);
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
   <header class="site-header">
     <h1>گالری سه‌بعدی محصولات</h1>
-    <p class="lead"></p>
+    <p class="lead">محصولات مدرن با طراحی لوکس</p>
   </header>
 
   <main class="container">
@@ -37,8 +152,9 @@
       <article class="card">
         <a class="card-link" href="products/product1/">
           <div class="preview">
-            <!-- نمایش پیش‌نمایش مدل -->
-            <model-viewer src="models/product1_design1.glb" alt="پیش‌نمایش محصول نمونه" camera-controls auto-rotate exposure="1" shadow-intensity="1" style="width:100%; height:220px;"></model-viewer>
+            <model-viewer src="models/product1_design1.glb" alt="پیش‌نمایش محصول نمونه"
+              camera-controls auto-rotate exposure="1" shadow-intensity="1"
+              style="width:100%; height:220px;"></model-viewer>
           </div>
           <div class="card-body">
             <h3>کیف نمونه</h3>
@@ -50,7 +166,7 @@
   </main>
 
   <footer class="site-footer">
-    <p></p>
+    <p>Taha Rezapour</p>
   </footer>
 </body>
 </html>
